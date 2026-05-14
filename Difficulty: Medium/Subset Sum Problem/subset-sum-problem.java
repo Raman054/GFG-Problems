@@ -1,25 +1,14 @@
 class Solution {
-    static Boolean isSubsetSum(int arr[], int sum){
-        int n = arr.length;
-        boolean dp[][] = new boolean[n + 1][sum + 1];
-        for(int i = 0; i <= n; i++)
+    static Boolean isSubsetSum(int arr[], int sum) {
+        boolean[] dp = new boolean[sum + 1];
+        dp[0] = true;
+        for(int num : arr) 
         {
-            dp[i][0] = true;
-        }
-        for(int i = 1; i <= n; i++)
-        {
-            for(int j = 1; j <= sum; j++)
+            for(int j = sum; j >= num; j--) 
             {
-                if(arr[i-1] <= j)
-                {
-                    dp[i][j] = dp[i-1][j] || dp[i-1][j - arr[i-1]];
-                } 
-                else 
-                {
-                    dp[i][j] = dp[i-1][j];
-                }
+                dp[j] = dp[j] || dp[j - num];
             }
         }
-        return dp[n][sum];
+        return dp[sum];
     }
 }
